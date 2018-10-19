@@ -1,0 +1,105 @@
+CSP - Simple and Elegant Concurrency Model of GO
+
+Rafiqul Hasan (a.k.a. shopnilsazal)
+
+
+* Topics
+- Story
+- Communicating Sequential Processes (CSP) 
+- Concurrency
+
+* 
+.image csp/1978-pop.jpg
+
+
+* Multiprocessors were a research topic
+
+* Programming multiprocessors seemed  related issues of
+- operating system research
+- interrupt handling
+- I/O systems
+- message passing
+
+* Some ideas in the air
+- semaphore (Dijkstra, 1965)
+- monitors (Hoare, 1974)
+- queues
+- locks (mutexes)
+- message passing
+- event
+
+* Paper came out
+.image csp/paper.png
+
+
+* What is CSP?
+
+* Communicating Sequential Processes
+Communicating Sequential Processes (CSP) is a formal language for describing patterns of interaction in concurrent systems. It is a mathematical theory of concurrency known as process algebras, or process calculi, based on message passing via channels.
+
+* 
+.image csp/confused.jpg
+
+* In Simple
+- It's a model programming language.
+- Describes parallel composition of independently sequential processes.
+- Communicates via message passing.
+.image csp/got-it.jpg
+
+* It looks like this
+
+Based on Dijkstra's guarded commands, with ! for
+sending and ? for receiving a message.
+
+	p!value    sends value to process p
+
+	p?var    receives value from p, stores in variable var
+
+	[A;B]    runs A followed by B
+
+	[A||B]    runs A in parallel with B (composition)
+
+	*[A]    runs A repeatedly
+
+	[a ! A [] b ! B]    guarded command (if a then A elif b then B, but in parallel)
+
+
+* What is concurrency?
+
+* Concurrency
+
+Concurrency is a way to build things. It's a composition of independently executing things (typically functions).
+
+“Concurrency is about dealing with lots of things at once. Parallelism is about doing lots of things at once” – Rob Pike
+
+* Let's go back to CSP
+
+* Two branches
+.image csp/branches.png
+
+* CSP is built on two basic primitives
+- processes
+    not OS process
+    not threads
+    no shared memory
+- channels
+    communication medium for processes
+
+
+* In Go Sense
+
+- goroutines
+	independently executing function, launched by a go statement
+- channels
+    connection between two goroutines, allowing them to communicate
+
+Channels and functions are first class, which can run in parallel.
+
+
+* Example
+.code csp/example.go /START1/,/STOP1/
+
+* Example
+.play csp/example.go /START2/,/STOP2/
+
+* That's all for today
